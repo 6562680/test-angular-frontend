@@ -1,0 +1,27 @@
+<div class="todo">
+  <ul class="todo-list">
+    <li *ngFor="let id of ids()" class="todo-item">
+      <label [hidden]="! buffer.edit[id]">
+        <input type="text" name="id" [(ngModel)]="form.id" />
+      </label>
+      <span [hidden]="buffer.edit[id]">{{ list[ id ].id }}</span>
+      |
+
+      <label [hidden]="! buffer.edit[id]">
+        <input type="text" name="title" [(ngModel)]="form.title" />
+      </label>
+      <span [hidden]="buffer.edit[id]">{{ list[ id ].title }}</span>
+      |
+
+      <label [hidden]="! buffer.edit[id]">
+        <input type="date" name="date" [(ngModel)]="form.date" />
+      </label>
+      <span [hidden]="buffer.edit[id]">{{ moment.formatUser( list[ id ].date ) }}</span>
+      |
+
+      <button [hidden]="buffer.edit[id]" type="button" (click)="onButtonEditClick($event, id)">Edit</button>
+      <button [hidden]="! buffer.edit[id]" type="button" (click)="onButtonSaveClick($event, id)">Save</button>
+      <button [hidden]="! buffer.edit[id]" type="button" (click)="onButtonCancelClick($event, id)">Cancel</button>
+    </li>
+  </ul>
+</div>
