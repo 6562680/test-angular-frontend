@@ -1,5 +1,5 @@
 export interface iRepoUnique {
   [key: string]: {
-    [key: string]: number;
+    [key: string]: string;
   };
 }

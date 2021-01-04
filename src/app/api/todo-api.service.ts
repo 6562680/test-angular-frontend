@@ -12,7 +12,7 @@ import {iModelTodo} from "../lib/models/iModelTodo";
 @Injectable({
   providedIn: 'root',
 })
-export class TodosApi {
+export class TodoApi {
   protected http: HttpService;
 
   constructor(http: HttpService) {

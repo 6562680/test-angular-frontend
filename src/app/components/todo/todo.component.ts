@@ -8,7 +8,8 @@ import {iRepoUnique} from "../../lib/repo/iRepoUnique";
 
 import {iModelTodo} from "../../lib/models/iModelTodo";
 
-import {TodosApi} from '../../api/todos.api';
+import {TodoApi} from '../../api/todo-api.service';
+import {TodoMemoryRepo} from "../../lib/repo/memory/TodoMemoryRepo";
 
 @Component({
   selector: 'app-todo',
@@ -16,10 +17,6 @@ import {TodosApi} from '../../api/todos.api';
   styleUrls: ['./todo.component.styl']
 })
 export class TodoComponent implements OnInit {
-  public readonly list: iRepoList<iModelTodo> = {};
-  public readonly index: iRepoIndex = {};
-  public readonly unique: iRepoUnique = {};
-
   public readonly buffer: {
     edit: object
   } = {
@@ -35,23 +32,22 @@ export class TodoComponent implements OnInit {
 
   constructor(
     public moment: MomentService,
-    public todosApi: TodosApi
+    public todoApi: TodoApi,
+    public todoRepo: TodoMemoryRepo
   ) {
   }
 
 
   ngOnInit(): void {
-    this.todosApi.todosList()
+    this.todoApi.todosList()
       .subscribe(res => {
-        this['list' as any] = res.data.list;
-        this['index' as any] = res.data.index;
-        this['unique' as any] = res.data.unique;
+        this.todoRepo.persistMany(Object.values(res.data.list));
       });
   }
 
 
   ids(): string[] {
-    return Object.keys(this.list);
+    return this.todoRepo.ids();
   }
 
 

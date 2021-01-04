@@ -14,7 +14,7 @@ import {aMemoryRepo} from "./aMemoryRepo";
 @Injectable({
   providedIn: TodoModule
 })
-export class TodoMemoryRepo extends aMemoryRepo implements iRepo<iModelTodo> {
+export class TodoMemoryRepo extends aMemoryRepo<iModelTodo> implements iRepo<iModelTodo> {
   public readonly list: iRepoList<iModelTodo> = {};
   public readonly index: iRepoIndex = {
     group: {}
